@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html ng-app="app">
+
+	<head>
+		<meta charset="UTF-8">
+		<link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.page-list .pagination {
+				float: left;
+			}
+			
+			.page-list .pagination span {
+				cursor: pointer;
+			}
+			
+			.page-list .pagination .separate span {
+				cursor: default;
+				border-top: none;
+				border-bottom: none;
+			}
+			
+			.page-list .pagination .separate span:hover {
+				background: none;
+			}
+			
+			.page-list .page-total {
+				float: left;
+				margin: 25px 20px;
+			}
+			
+			.page-list .page-total input,
+			.page-list .page-total select {
+				height: 26px;
+				border: 1px solid #ddd;
+			}
+			
+			.page-list .page-total input {
+				width: 40px;
+				padding-left: 3px;
+			}
+			
+			.page-list .page-total select {
+				width: 50px;
+			}
+		</style>
+	</head>
+
+	<body ng-controller="appCtrl">
+		<div class="container">
+			<h1>Angular: simple paging</h1>
+			<ng-pagination conf="vm.config"></ng-pagination>
+		</div>
+		<script src="//cdn.bootcss.com/angular.js/1.5.7/angular.min.js"></script>
+		<script src="js/paging.js"></script>
+		<script>
+			var app = angular.module("app", ["pagination"]);
+			app.controller("appCtrl", function($scope) {
+				var vm = $scope.vm = {};
+
+				vm.config = {
+					currentPage: 1,
+					totalItems: 101,
+					itemsPerPage: 10,
+					pagesLength: 9,
+					perPageOptions: [10, 20, 30, 40, 50],
+					rememberPerPage: 'perPageItems',
+					onChange: function() {
+
+					}
+				}
+
+			});
+		</script>
+	</body>
+
+</html>
