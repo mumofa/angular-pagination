@@ -37,28 +37,23 @@ angular.module('pagination', []).directive('ngPagination',[function(){
                 scope.conf.pagesLength = scope.conf.pagesLength -1;
             }
 
-            // conf.erPageOptions
-            if(!scope.conf.perPageOptions){
-                scope.conf.perPageOptions = [10, 15, 20, 30, 50];
-            }
-
             // pageList数组
             function getPagination(newValue, oldValue) {
                 
-
                 // conf.currentPage
+                // 当前页 
                 scope.conf.currentPage = parseInt(scope.conf.currentPage) ? parseInt(scope.conf.currentPage) : 1;
                 
-
-
                 // conf.totalItems
+                // items总数
                 scope.conf.totalItems = parseInt(scope.conf.totalItems) ? parseInt(scope.conf.totalItems) : 0;
 
-                // conf.itemsPerPage (default:15)
-                scope.conf.itemsPerPage = parseInt(scope.conf.itemsPerPage) ? parseInt(scope.conf.itemsPerPage) : 15;
-                
+                // conf.itemsPerPage (default:10)
+                // 每页items 数
+                scope.conf.itemsPerPage = parseInt(scope.conf.itemsPerPage) ? parseInt(scope.conf.itemsPerPage) : 10;
 
                 // numberOfPages
+                // 总共多少页 math.ceil 向上取整
                 scope.conf.numberOfPages = Math.ceil(scope.conf.totalItems/scope.conf.itemsPerPage);
 
                 // judge currentPage > scope.numberOfPages
@@ -72,24 +67,8 @@ angular.module('pagination', []).directive('ngPagination',[function(){
                 }
 
                 // jumpPageNum
+                // 跳转页 
                 scope.jumpPageNum = scope.conf.currentPage;
-
-                // 如果itemsPerPage在不在perPageOptions数组中，就把itemsPerPage加入这个数组中
-                var perPageOptionsLength = scope.conf.perPageOptions.length;
-                // 定义状态
-                var perPageOptionsStatus;
-                for(var i = 0; i < perPageOptionsLength; i++){
-                    if(scope.conf.perPageOptions[i] == scope.conf.itemsPerPage){
-                        perPageOptionsStatus = true;
-                    }
-                }
-                // 如果itemsPerPage在不在perPageOptions数组中，就把itemsPerPage加入这个数组中
-                if(!perPageOptionsStatus){
-                    scope.conf.perPageOptions.push(scope.conf.itemsPerPage);
-                }
-
-                // 对选项进行sort
-                scope.conf.perPageOptions.sort(function(a, b){return a-b});
 
                 scope.pageList = [];
                 if(scope.conf.numberOfPages <= scope.conf.pagesLength){
